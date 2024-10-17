@@ -19,6 +19,9 @@ class Program
         string? mailSubject = configuration.GetValue<string>("MailSubject");
         string? mailBody = configuration.GetValue<string>("MailBody");
         string? passwordSender = configuration.GetValue<string>("MailSender:password");
+        string? attachmentPath = configuration.GetValue<string>("AttachmentPath");
+
+        Attachment attachment = new Attachment(fileName: attachmentPath);
 
         MailMessage mailMessage = new();
 
@@ -26,6 +29,7 @@ class Program
         mailMessage.To.Add(addresses: mailReceiver);
         mailMessage.Subject = mailSubject;
         mailMessage.Body = mailBody;
+        mailMessage.Attachments.Add(attachment);
 
         SmtpClient smtpClient = new();
 
